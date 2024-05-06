@@ -2,7 +2,7 @@
 
 namespace lab07.Repositories;
 
-public class WarehouseRepository
+public class WarehouseRepository : IWarehouseRepository
 {
     private readonly IConfiguration _configuration;
     public WarehouseRepository(IConfiguration configuration)
@@ -127,7 +127,7 @@ public class WarehouseRepository
         var query2 = "SELECT 1 FROM Product WHERE IdProduct = @ID";
 
         command2.Connection = connection;
-        command2.CommandText = query;
+        command2.CommandText = query2;
         command2.Parameters.AddWithValue("@ID", ProductId);
 
         var reader2 = await command2.ExecuteReaderAsync();
@@ -140,7 +140,7 @@ public class WarehouseRepository
         var query3 = "INSERT INTO (IdWarehouse, IdProduct, IdOrder, Amount, Price, CreatedAt) VALUES (@idwarehouse, @idproduct, @idorder, @amount, @price, @createdat)";
 
         command3.Connection = connection;
-        command3.CommandText = query;
+        command3.CommandText = query3;
         command3.Parameters.AddWithValue("@idwarehouse", WarehouseId);
         command3.Parameters.AddWithValue("@idproduct", ProductId);
         command3.Parameters.AddWithValue("@idorder", OrderId);

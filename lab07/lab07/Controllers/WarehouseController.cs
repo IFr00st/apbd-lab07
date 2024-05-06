@@ -8,9 +8,9 @@ namespace lab07.Controllers
     [ApiController]
     public class WarehouseController : ControllerBase
     {
-        private readonly WarehouseRepository _warehouseRepository;
+        private readonly IWarehouseRepository _warehouseRepository;
 
-        public WarehouseController(WarehouseRepository warehouseRepository)
+        public WarehouseController(IWarehouseRepository warehouseRepository)
         {
             _warehouseRepository = warehouseRepository;
         }
@@ -25,9 +25,9 @@ namespace lab07.Controllers
             if (!await _warehouseRepository.DoesRightOrderExist(warehouse.IdProduct, warehouse.Amount))
                 return NotFound("Right order doesn't exist");
 
-            await _warehouseRepository.InsertIntoProductWarehouse(warehouse.IdProduct, warehouse.IdWarehouse,
-                warehouse.Amount);
-            return Ok("0");
+            
+            return Ok(await _warehouseRepository.InsertIntoProductWarehouse(warehouse.IdProduct, warehouse.IdWarehouse,
+                warehouse.Amount));
 
         }
     }
